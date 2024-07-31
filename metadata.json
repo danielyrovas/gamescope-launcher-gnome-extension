@@ -2,6 +2,7 @@
   "name": "Gamescope Launcher",
   "description": "Launch and control a gamescope session",
   "uuid": "gamescope-launcher@danielyrovas.com",
+  "url": "https://github.com/danielyrovas/gamescope-launcher-gnome-extension",
   "shell-version": [
     "46"
   ],

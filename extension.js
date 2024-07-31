@@ -8,6 +8,33 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
 import { GamescopeClient, GamescopeConfig } from "./gamescopeclient.js";
 
+export default class GamescopeExtension extends Extension {
+    enable() {
+        this._settings = this.getSettings();
+        this._indicator = new GamescopeIndicator(this, this._settings);
+        this._menu = new GamescopeMenuToggle(this, this._settings);
+        this._indicator.quickSettingsItems.push(this._menu);
+
+        Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
+    }
+
+    disable() {
+        this._indicator.quickSettingsItems.forEach(item => item.destroy());
+        this._settings = null;
+
+        if (this._indicator != null) {
+            this._indicator.destroy();
+            this._indicator = null;
+        }
+        if (this._menu != null) {
+            this._menu.destroy();
+            this._menu = null;
+        }
+
+        // This extension requires the `unlock-dialog` session-mode because it spawns Gamescope using Gio.Subprocess.new() and Gamescope should not be killed if the screen is locked. If a game is running inside the Gamescope window it would crash if the extension is disabled, and this is undesirable behaviour (and would invalidate the purpose of the extension).
+    }
+}
+
 const GamescopeIndicator = GObject.registerClass(
     class GamescopeIndicator extends QuickSettings.SystemIndicator {
         _init(extension, settings) {
@@ -199,28 +226,10 @@ const GamescopeMenuToggle = GObject.registerClass(
             cfg.refreshRate = this._settings.get_string('gamescope-refresh-rate');
             return cfg;
         }
+
+        destroy() {
+            this._gamescopeClient.kill();
+            this._gamescopeClient.destroy();
+            super.destroy();
+        }
     });
-
-export default class GamescopeExtension extends Extension {
-    enable() {
-        this._settings = this.getSettings();
-        this._indicator = new GamescopeIndicator(this, this._settings);
-        this._menu = new GamescopeMenuToggle(this, this._settings);
-        this._indicator.quickSettingsItems.push(this._menu);
-
-        Main.panel.statusArea.quickSettings.addExternalIndicator(this._indicator);
-    }
-
-    disable() {
-        this._indicator.quickSettingsItems.forEach(item => item.destroy());
-
-        if (this._indicator != null) {
-            this._indicator.destroy();
-            this._indicator = null;
-        }
-        if (this._menu != null) {
-            this._menu.destroy();
-            this._menu = null;
-        }
-    }
-}
