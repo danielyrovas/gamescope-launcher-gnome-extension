@@ -1,0 +1,13 @@
+{
+  "name": "Gamescope Launcher",
+  "description": "Launch and control a gamescope session",
+  "uuid": "gamescope-launcher@danielyrovas.com",
+  "shell-version": [
+    "46"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.gamescope-launcher",
+  "session-modes": [
+    "user",
+    "unlock-dialog"
+  ]
+}

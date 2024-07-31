@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.gamescope-launcher" path="/org/gnome/shell/extensions/gamescope-launcher/">
+    <key name="quick-toggle" type="b">
+      <default>true</default>
+      <summary>Click to crash/launch Gamescope</summary>
+      <description>Launch a new gamescope session, or close an existing one whenever the extension icon is pressed.</description>
+    </key>
+    <key name="gamescope-enabled" type="b">
+      <default>false</default>
+      <summary>Is Gamescope running?</summary>
+      <description>Toggle Gamescope</description>
+    </key>
+    <key name="gamescope-fullscreen" type="b">
+      <default>true</default>
+      <summary>Run Gamescope in fullscreen mode</summary>
+      <description>Run Gamescope in fullscreen mode.</description>
+    </key>
+    <key name="gamescope-mangohud" type="b">
+      <default>false</default>
+      <summary>Enable MangoHUD</summary>
+      <description>Run Gamescope with --mangoapp.</description>
+    </key>
+    <key name="gamescope-refresh-rate" type="s">
+      <default>"60"</default>
+      <summary>Gamescope refresh rate</summary>
+      <description>What refresh rate to select for Gamescope.</description>
+    </key>
+    <key name="gamescope-width" type="s">
+      <default>"1920"</default>
+      <summary>Gamescope width</summary>
+      <description>What width to select for Gamescope.</description>
+    </key>
+    <key name="gamescope-height" type="s">
+      <default>"1080"</default>
+      <summary>Gamescope height</summary>
+      <description>What height to select for Gamescope.</description>
+    </key>
+  </schema>
+</schemalist>
