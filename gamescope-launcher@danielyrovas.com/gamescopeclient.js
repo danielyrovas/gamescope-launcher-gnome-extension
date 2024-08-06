@@ -15,7 +15,7 @@ export class GamescopeClient extends EventEmitter {
         this._process = null;
     }
     setConfig(config) {
-        this._cmd = ['gamescope'];
+        this._cmd = ['fork', 'gamescope'];
         if (config.width) {
             this._cmd.push('-W');
             this._cmd.push(config.width);
